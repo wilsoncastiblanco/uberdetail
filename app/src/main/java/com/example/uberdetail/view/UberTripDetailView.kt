@@ -7,4 +7,5 @@ import com.example.uberdetail.model.Trip
 interface UberTripDetailView {
 
     fun renderTripDetail(trip: Trip, driver: Driver, bill: Bill)
+    fun showError(message: String)
 }

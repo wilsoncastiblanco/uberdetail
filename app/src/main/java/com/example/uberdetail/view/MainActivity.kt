@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), UberTripDetailView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         progress.visibility = View.VISIBLE
-        presenter.showUberTripDetail("2")
+        presenter.showUberTripDetail("3")
     }
 
     override fun renderTripDetail(trip: Trip, driver: Driver, bill: Bill) {
@@ -27,6 +27,15 @@ class MainActivity : AppCompatActivity(), UberTripDetailView {
         text_driver.text = "Driver Name: ${driver.name}"
         text_bill.text = "Trip Price: ${bill.price}"
         progress.visibility = View.GONE
+    }
+
+    override fun showError(message: String) {
+        progress.visibility = View.GONE
+        Toast.makeText(
+            applicationContext,
+            "There was an error in the request $message",
+            Toast.LENGTH_LONG
+        ).show()
     }
 
     override fun onDestroy() {
