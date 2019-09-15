@@ -29,6 +29,11 @@ class MainActivity : AppCompatActivity(), UberTripDetailView {
         progress.visibility = View.GONE
     }
 
+    override fun showError() {
+        Toast.makeText(applicationContext, "There was an error in the process!", Toast.LENGTH_SHORT)
+            .show()
+    }
+
     override fun onDestroy() {
         presenter.onDestroy()
         super.onDestroy()

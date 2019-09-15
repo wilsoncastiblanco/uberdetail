@@ -2,23 +2,34 @@ package com.example.uberdetail.presenter
 
 import com.example.uberdetail.interactor.UberTripRepositoryNetwork
 import com.example.uberdetail.view.UberTripDetailView
-import kotlinx.coroutines.*
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 
-class UberTripDetailPresenter(private val view: UberTripDetailView) : CoroutineScope by MainScope() {
+class UberTripDetailPresenter(private val view: UberTripDetailView) {
 
     private val repository = UberTripRepositoryNetwork()
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     fun showUberTripDetail(tripId: String) {
-        launch {
-            val trip = repository.getTrip(tripId)
-            val driver = repository.getTripDriver(trip.userId)
-            val bill = repository.getTripBill(trip.billId)
-            view.renderTripDetail(trip, driver, bill)
-        }
+        val observer =
+            repository.getTrip(tripId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                {
+                    view.renderTripDetail(it.third, it.first, it.second)
+                },
+                {
+                    view.showError()
+                }
+            )
+
+        compositeDisposable.add(observer)
     }
 
     fun onDestroy() {
-        coroutineContext.cancel()
+        compositeDisposable.clear()
     }
 
 }
