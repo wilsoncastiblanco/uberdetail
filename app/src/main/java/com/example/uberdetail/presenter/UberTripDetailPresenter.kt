@@ -1,30 +1,62 @@
 package com.example.uberdetail.presenter
 
 import com.example.uberdetail.interactor.UberTripRepositoryNetwork
+import com.example.uberdetail.model.Bill
+import com.example.uberdetail.model.Driver
+import com.example.uberdetail.model.Trip
 import com.example.uberdetail.view.UberTripDetailView
-import kotlinx.coroutines.*
 
 class UberTripDetailPresenter(private val view: UberTripDetailView) {
-
-    private val job = Job()
-    private val scopeMainThread = CoroutineScope(job + Dispatchers.Main)
-    private val scopeIO = CoroutineScope(job + Dispatchers.Default)
 
     private val repository = UberTripRepositoryNetwork()
 
     fun showUberTripDetail(tripId: String) {
-        scopeIO.launch {
-            val trip = repository.getTrip(tripId)
-            val driver = repository.getTripDriver(trip.userId)
-            val bill = repository.getTripBill(trip.billId)
-            scopeMainThread.launch {
-                view.renderTripDetail(trip, driver, bill)
+        repository.getTrip(tripId, object : Event<Trip> {
+
+            override fun onSuccess(trip: Trip?) {
+
+                repository.getTripDriver(trip?.userId.orEmpty(), object : Event<Driver> {
+
+                    override fun onSuccess(driver: Driver?) {
+
+                        repository.getTripBill(trip?.billId.orEmpty(), object : Event<Bill> {
+
+                            override fun onSuccess(bill: Bill?) {
+
+                                view.renderTripDetail(trip!!, driver!!, bill!!)
+
+                            }
+
+                            override fun onError() {
+                                view.showError()
+                            }
+
+                        }) // Bill Request
+                    }
+
+                    override fun onError() {
+                        view.showError()
+                    }
+
+                }) // Driver Request
+
             }
-        }
+
+            override fun onError() {
+                view.showError()
+            }
+
+        }) // Trip Request
+
     }
 
-    fun onDestroy() {
-        job.cancel()
+    fun destroy() {
+
+    }
+
+    interface Event<T> {
+        fun onSuccess(entity: T?)
+        fun onError()
     }
 
 }
