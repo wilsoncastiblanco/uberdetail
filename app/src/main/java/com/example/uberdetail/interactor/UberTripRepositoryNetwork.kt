@@ -10,15 +10,15 @@ class UberTripRepositoryNetwork {
     private val service = uberTripService()
 
     suspend fun getTrip(tripId: String): Trip {
-        return service.getTrip(tripId).await()
+        return service.getTrip(tripId)
     }
 
     suspend fun getTripDriver(userId: String): Driver {
-        return service.getTripDriver(userId).await()
+        return service.getTripDriver(userId)
     }
 
     suspend fun getTripBill(billId: String): Bill {
-        return service.getTripBill(billId).await()
+        return service.getTripBill(billId)
     }
 
 }
