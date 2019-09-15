@@ -23,7 +23,7 @@ class UberTripDetailPresenter(private val view: UberTripDetailView) : CoroutineS
     }
 
     fun onDestroy() {
-        coroutineContext.cancel()
+        coroutineContext.cancelChildren()
     }
 
 }

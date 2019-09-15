@@ -4,6 +4,7 @@ import com.example.uberdetail.api.RetrofitFactory.uberTripService
 import com.example.uberdetail.model.Bill
 import com.example.uberdetail.model.Driver
 import com.example.uberdetail.model.Trip
+import java.lang.IllegalArgumentException
 
 class UberTripRepositoryNetwork {
 
