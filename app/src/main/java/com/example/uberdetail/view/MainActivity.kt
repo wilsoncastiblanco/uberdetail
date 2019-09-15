@@ -8,6 +8,7 @@ import com.example.uberdetail.model.Bill
 import com.example.uberdetail.model.Driver
 import com.example.uberdetail.model.Trip
 import com.example.uberdetail.presenter.UberTripDetailPresenter
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), UberTripDetailView {
 
@@ -20,11 +21,9 @@ class MainActivity : AppCompatActivity(), UberTripDetailView {
     }
 
     override fun renderTripDetail(trip: Trip, driver: Driver, bill: Bill) {
-        Toast.makeText(
-            applicationContext,
-            "Trip: ${trip.id}, Driver: ${driver.name}, Bill: ${bill.price}",
-            Toast.LENGTH_LONG
-        ).show()
+        text_trip.text = "Trip Identifier: ${trip.id}"
+        text_driver.text = "Driver Name: ${driver.name}"
+        text_bill.text = "Trip Price: ${bill.price}"
     }
 
     override fun onDestroy() {
