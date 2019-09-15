@@ -2,6 +2,7 @@ package com.example.uberdetail.view
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import com.example.uberdetail.R
 import com.example.uberdetail.model.Bill
@@ -17,6 +18,7 @@ class MainActivity : AppCompatActivity(), UberTripDetailView {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        progress.visibility = View.VISIBLE
         presenter.showUberTripDetail("2")
     }
 
@@ -24,6 +26,7 @@ class MainActivity : AppCompatActivity(), UberTripDetailView {
         text_trip.text = "Trip Identifier: ${trip.id}"
         text_driver.text = "Driver Name: ${driver.name}"
         text_bill.text = "Trip Price: ${bill.price}"
+        progress.visibility = View.GONE
     }
 
     override fun onDestroy() {
