@@ -4,8 +4,7 @@ import com.example.uberdetail.interactor.UberTripRepositoryNetwork
 import com.example.uberdetail.view.UberTripDetailView
 import kotlinx.coroutines.*
 
-class UberTripDetailPresenter(private val view: UberTripDetailView) :
-    CoroutineScope by MainScope() {
+class UberTripDetailPresenter(private val view: UberTripDetailView) : CoroutineScope by MainScope() {
 
     private val repository = UberTripRepositoryNetwork()
 
