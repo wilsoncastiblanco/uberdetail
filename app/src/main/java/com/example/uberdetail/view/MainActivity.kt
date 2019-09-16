@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), UberTripDetailView {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         progress.visibility = View.VISIBLE
-        presenter.showUberTripDetail("3")
+        presenter.showUberTripDetail("2")
     }
 
     override fun renderTripDetail(trip: Trip, driver: Driver, bill: Bill) {
