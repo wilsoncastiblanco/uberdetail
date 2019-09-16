@@ -30,9 +30,9 @@ class MainActivity : AppCompatActivity(), UberTripDetailView {
         progress.visibility = View.GONE
     }
 
-    override fun showError() {
+    override fun showError(message: String) {
         progress.visibility = View.GONE
-        Toast.makeText(applicationContext, "There was an error in the process", Toast.LENGTH_SHORT)
+        Toast.makeText(applicationContext, "There was an error in the process: $message", Toast.LENGTH_LONG)
             .show()
     }
 

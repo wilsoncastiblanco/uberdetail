@@ -27,23 +27,23 @@ class UberTripDetailPresenter(private val view: UberTripDetailView) {
 
                             }
 
-                            override fun onError() {
-                                view.showError()
+                            override fun onError(throwable: Throwable) {
+                                view.showError(throwable.message.orEmpty())
                             }
 
                         }) // Bill Request
                     }
 
-                    override fun onError() {
-                        view.showError()
+                    override fun onError(throwable: Throwable) {
+                        view.showError(throwable.message.orEmpty())
                     }
 
                 }) // Driver Request
 
             }
 
-            override fun onError() {
-                view.showError()
+            override fun onError(throwable: Throwable) {
+                view.showError(throwable.message.orEmpty())
             }
 
         }) // Trip Request
@@ -56,7 +56,7 @@ class UberTripDetailPresenter(private val view: UberTripDetailView) {
 
     interface Event<T> {
         fun onSuccess(entity: T?)
-        fun onError()
+        fun onError(error: Throwable)
     }
 
 }

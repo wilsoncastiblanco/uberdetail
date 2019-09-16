@@ -18,7 +18,7 @@ class UberTripRepositoryNetwork {
         service.getTrip(tripId).enqueue(object: Callback<Trip> {
 
             override fun onFailure(call: Call<Trip>, t: Throwable) {
-                event.onError()
+                event.onError(t)
             }
 
             override fun onResponse(call: Call<Trip>, response: Response<Trip>) {
@@ -33,7 +33,7 @@ class UberTripRepositoryNetwork {
         service.getTripDriver(userId).enqueue(object: Callback<Driver> {
 
             override fun onFailure(call: Call<Driver>, t: Throwable) {
-                event.onError()
+                event.onError(t)
             }
 
             override fun onResponse(call: Call<Driver>, response: Response<Driver>) {
@@ -48,7 +48,7 @@ class UberTripRepositoryNetwork {
         service.getTripBill(billId).enqueue(object: Callback<Bill> {
 
             override fun onFailure(call: Call<Bill>, t: Throwable) {
-                event.onError()
+                event.onError(t)
             }
 
             override fun onResponse(call: Call<Bill>, response: Response<Bill>) {
