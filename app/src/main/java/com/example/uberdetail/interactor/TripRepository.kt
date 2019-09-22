@@ -1,24 +1,23 @@
 package com.example.uberdetail.interactor
 
 import com.example.uberdetail.api.RetrofitFactory.uberTripService
+import com.example.uberdetail.api.UberTripService
 import com.example.uberdetail.model.Bill
 import com.example.uberdetail.model.Driver
 import com.example.uberdetail.model.Trip
-import java.lang.IllegalArgumentException
 
-class UberTripRepositoryNetwork {
+class TripRepository(private val service: UberTripService = uberTripService()) :
+    UberTripRepository {
 
-    private val service = uberTripService()
-
-    suspend fun getTrip(tripId: String): Trip {
+    override suspend fun getTrip(tripId: String): Trip {
         return service.getTrip(tripId)
     }
 
-    suspend fun getTripDriver(userId: String): Driver {
+    override suspend fun getTripDriver(userId: String): Driver {
         return service.getTripDriver(userId)
     }
 
-    suspend fun getTripBill(billId: String): Bill {
+    override suspend fun getTripBill(billId: String): Bill {
         return service.getTripBill(billId)
     }
 

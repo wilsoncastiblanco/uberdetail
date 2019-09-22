@@ -1,12 +1,14 @@
 package com.example.uberdetail.presenter
 
-import com.example.uberdetail.interactor.UberTripRepositoryNetwork
+import com.example.uberdetail.interactor.TripRepository
 import com.example.uberdetail.view.UberTripDetailView
 import kotlinx.coroutines.*
+import kotlin.coroutines.CoroutineContext
 
-class UberTripDetailPresenter(private val view: UberTripDetailView) : CoroutineScope by MainScope() {
-
-    private val repository = UberTripRepositoryNetwork()
+class UberTripDetailPresenter(private val view: UberTripDetailView,
+                              private val coroutineCtx: CoroutineContext = Dispatchers.Main,
+                              private val repository: TripRepository = TripRepository()) :
+    CoroutineScope by CoroutineScope(coroutineCtx) {
 
     fun showUberTripDetail(tripId: String) {
 
